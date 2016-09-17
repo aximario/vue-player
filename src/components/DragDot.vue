@@ -1,15 +1,23 @@
+// 可拖动点
+// 在被拖动的时候会 dispatch 'drag' 事件
+// 向父链通知当前的偏移量
+// 可以在父链捕获到相应的偏移量改变并做处理
+
 <template>
 	<div></div>
 </template>
 
 <style scoped>
 	div {
+		position: absolute;
+
 		width: 10px;
 		height: 10px;
+
 		border-radius: 50%;
 		background-color: #eee;
+
 		cursor: pointer;
-		position: absolute;
 	}
 </style>
 
@@ -22,7 +30,18 @@
 
 			// 总长度（最大偏移量） 单位：px
 			length: Number
+
 		},
+		events: {
+
+			// 监听update-offset事件，更新偏移量
+			'update-offset': function(offset){
+				this.offset = offset;
+				this.$el.style.left = offset - 5 + 'px';
+			}
+		},
+
+		// 初始化，绑定事件
 		ready() {
 			let dragEle = this.$el,
 				that = this;
@@ -41,7 +60,7 @@
 					if (ofs <= len && ofs >= -5) {
 						that.offset = ofs + 5;
 
-						// 触发派发事件，向父链通知偏移量（offset）的改变
+						// 触发dispatch事件，向父链通知偏移量（offset）的改变
 						that.$dispatch('drag', that.offset);
 						
 						dragEle.style.left = ofs + 'px';
@@ -58,6 +77,7 @@
 				e.stopPropagation();
 				e.preventDefault();
 			};
+
 			dragEle.addEventListener('mousedown', handleDown, false);
 		}
 	}
