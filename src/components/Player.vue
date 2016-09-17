@@ -1,8 +1,10 @@
 <template>
   <div>
     <play-button :audio.once="audio"></play-button>
-    <mute-button :audio.once="audio"></mute-button>
-    <volume-bar :audio.once="audio"></volume-bar>
+	<div>
+    	<mute-button class="mute" :audio.once="audio"></mute-button>
+    	<volume-bar class="volume" :audio.once="audio"></volume-bar>
+	</div>
   </div>
 </template>
 
@@ -22,8 +24,8 @@
 	}
 </script>
 
-<style>
-	body {
-		background-color: #272C30;
+<style scoped>
+	.mute, .volume {
+		display: inline-block;
 	}
 </style>

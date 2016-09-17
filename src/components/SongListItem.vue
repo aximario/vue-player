@@ -4,8 +4,14 @@
 	</div>
 </template>
 
-<style>
+<style scoped>
+	div {
+		padding: 14px;
+		color: #eee;
 
+		border-top: 1px solid #efefef;
+		border-bottom: 1px solid #efefef;
+	}
 </style>
 
 <script>
@@ -15,7 +21,7 @@
 			song: Object
 		},
 		methods: {
-			
+
 			// 播放这首歌
 			handleClick: function() {
 				let audio = this.audio;
