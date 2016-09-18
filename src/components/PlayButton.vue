@@ -1,5 +1,5 @@
 <template>
-  <button v-pause @click="handleClick">
+  <button @click="handleClick">
     <icon class="icon" :icon="icon"></icon>
   </button>
 </template>
@@ -23,14 +23,9 @@
 		components: {
 			Icon
 		},
-		props: {
-			audio: null
-		},
 		data() {
 			return {
-
-				// 代理audio的paused属性
-				paused: undefined
+				paused: true
 			}
 		},
 		computed: {
@@ -39,25 +34,20 @@
 			}
 		},
 		methods: {
-			handleClick: function() {
-				this.paused ? this.audio.play() : this.audio.pause();
+			handleClick: function(e) {
+				e.stopPropagation();
+				this.paused ? this.$dispatch('play') : this.$dispatch('pause');
 			}
 		},
-		directives: {
-
-			// 同步audio的paused状态
-			pause: {
-				bind: function() {
-
-					// 初始化paused状态
-					this.vm.paused = this.vm.audio.paused;
-					this.vm.audio.addEventListener('pause', e => {
-						this.vm.paused = true;
-					}, false);
-					this.vm.audio.addEventListener('play', e => {
-						this.vm.paused = false;
-					}, false);
-				}
+		events: {
+			'audio-play': function() {
+				this.paused = false;
+			},
+			'audio-pause': function() {
+				this.paused = true;
+			},
+			'audio-ended': function() {
+				this.paused = true;
 			}
 		}
 	}

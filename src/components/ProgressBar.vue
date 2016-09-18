@@ -1,7 +1,8 @@
 <template>
 	<div class="progress-bar">
-		<progressed class="progress" :length.once="percent * 200"></progressed>
-		<drag-dot class="drag-dot" :length.once="200" :offset.once="percent * 200" v-on:drag="drag"></drag-dot>
+		<progressed class="cache" :length.once="200" :percent="cache"></progressed>
+		<progressed class="progress" :length.once="200" :percent="percent"></progressed>
+		<drag-dot class="drag-dot" :length.once="200" :percent="percent" v-on:drag="drag"></drag-dot>
 	</div>
 </template>
 
@@ -11,12 +12,21 @@
 		width: 200px;
 		height: 4px;
 		background-color: rgba(255, 255, 255, .1);
-		;
+		border-radius: 2px;
+	}
+	
+	.progress,
+	.cache {
+		left: 0;
+		top: 0;
 	}
 	
 	.progress {
-		left: 0;
-		top: 0;
+		background-color: lightblue;
+	}
+	
+	.cache {
+		background-color: lightgreen;
 	}
 	
 	.drag-dot {
@@ -29,34 +39,28 @@
 	import Progressed from './Progressed';
 	import DragDot from './DragDot';
 	export default {
-		props: {
-			audio: null
-		},
 		components: {
 			Progressed,
 			DragDot
 		},
 		data() {
 			return {
-				percent: 0
+				percent: 0,
+				cache: 0
 			}
 		},
 		methods: {
-			drag(offset) {
-				let percent = offset / 200,
-					audio = this.audio;
-				this.percent = percent;
-				audio.currentTime = audio.duration * percent;
-				this.$broadcast('progress', offset);
+			drag(percent) {
+				this.$dispatch('update-time', percent);
 			}
 		},
-		ready() {
-			let audio = this.audio;
-			audio.addEventListener('timeupdate', e => {
-				this.percent = audio.currentTime / audio.duration;
-				this.$broadcast('progress', this.percent * 200);
-				this.$broadcast('update-offset', this.percent * 200);
-			}, false);
+		events: {
+			'audio-time-update': function(obj) {
+				this.percent = obj.currentTime / obj.duration;
+			},
+			'audio-progress': function(obj) {
+				this.cache = obj.buffered.end(0) / obj.duration;
+			}
 		}
 	}
 </script>

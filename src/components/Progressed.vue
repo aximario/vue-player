@@ -5,9 +5,8 @@
 <style scoped>
 	div {
 		position: absolute;
-
 		height: 4px;
-		background-color: lightblue;
+		border-radius: 2px;
 	}
 </style>
 
@@ -15,17 +14,24 @@
 	export default {
 		props: {
 
-			// 进度的长度 单位：px
+			// 百分比 0-1
+			percent: Number,
+
+			// 总长度 单位：px
 			length: Number
 		},
-		events: {
-			progress(length){
-				this.length = length;
-				this.$el.style.width = length + 'px';
+		computed: {
+			width() {
+				return this.percent * this.length;
+			}
+		},
+		watch: {
+			'width': function(val) {
+				this.$el.style.width = val + 'px';
 			}
 		},
 		ready() {
-			this.$el.style.width = this.length + 'px';
+			this.$el.style.width = this.width + 'px';
 		}
 	}
 </script>

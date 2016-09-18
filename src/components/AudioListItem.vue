@@ -7,26 +7,27 @@
 <style scoped>
 	div {
 		padding: 14px;
+
 		color: #eee;
 
 		border-top: 1px solid #efefef;
 		border-bottom: 1px solid #efefef;
+
+		cursor: pointer;
 	}
 </style>
 
 <script>
 	export default {
 		props: {
-			audio: null,
 			song: Object
 		},
 		methods: {
-
-			// 播放这首歌
 			handleClick: function() {
 				let audio = this.audio;
-				audio.src = this.song.src;
-				audio.play();
+
+				// dispatch 选择歌曲 事件，通知音频列表更新当前音频
+				this.$dispatch('select-song', this.song);
 			}
 		}
 	}

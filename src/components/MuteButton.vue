@@ -1,16 +1,17 @@
 <template>
-  <button v-muted @click="handleClick">
+  <button @click="handleClick">
     <icon class="icon" :icon="icon"></icon>
   </button>
 </template>
 
 <style scoped>
 	.icon {
-		font-size: 24px;
+		font-size: 23px;
 		color: #cdcdcd;
 	}
 	
 	button {
+		padding: 0;
 		border: none;
 		background-color: transparent;
 		outline: none;
@@ -23,12 +24,9 @@
 		components: {
 			Icon
 		},
-		props: {
-			audio: null
-		},
 		data() {
 			return {
-				muted: undefined
+				muted: false
 			}
 		},
 		computed: {
@@ -37,28 +35,10 @@
 			}
 		},
 		methods: {
-			handleClick() {
-				let audio = this.audio;
-				if (this.muted) {
-					audio.muted = false;
-				} else {
-					audio.muted = true;
-				}
-			}
-		},
-		directives: {
-
-			// 同步audio的muted状态
-			muted: {
-				bind: function() {
-					let audio = this.vm.audio;
-
-					// 初始化muted状态
-					this.vm.muted = audio.muted;
-					audio.addEventListener('volumechange', e => {
-						this.vm.muted = audio.muted;
-					}, false);
-				}
+			handleClick(e) {
+				e.stopPropagation();
+				this.muted ? this.$dispatch('unmute') : this.$dispatch('mute');
+				this.muted = !this.muted;
 			}
 		}
 	}

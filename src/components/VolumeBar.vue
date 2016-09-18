@@ -1,7 +1,7 @@
 <template>
     <div class="bar">
-		<progressed class="progress" :length.once="volume * 100"></progressed>
-        <drag-dot class="drag-dot" v-on:drag="updateVolume" :offset.once="60" :length.once="100"></drag-dot>
+		<progressed class="progress" :length.once="100" :percent="volume"></progressed>
+        <drag-dot class="drag-dot" v-on:drag="drag" :percent="volume" :length.once="100"></drag-dot>
     </div>
 </template>
 
@@ -11,6 +11,8 @@
 		width: 100px;
 		height: 4px;
 		background-color: rgba(255, 255, 255, .1);
+
+		border-radius: 2px;
 	}
 	.drag-dot {
 		left: -5px;
@@ -19,6 +21,7 @@
 	.progress {
 		left: 0;
 		top: 0;
+		background-color: lightblue;
 	}
 </style>
 
@@ -30,20 +33,19 @@
 			DragDot,
 			Progressed
 		},
-		props: {
-			audio: null
-		},
 		data() {
 			return {
 				volume: 0.6
 			}
 		},
 		methods: {
-			updateVolume(offset) {
-				let volume = offset/100;
+			drag(volume) {
+				this.$dispatch('update-volume', volume);
+			}
+		},
+		events: {
+			'audio-volume-change': function(volume) {
 				this.volume = volume;
-				this.audio.volume = volume;
-				this.$broadcast('progress', offset);
 			}
 		}
 	}
