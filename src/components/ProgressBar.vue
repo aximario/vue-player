@@ -26,7 +26,7 @@
 	}
 	
 	.cache {
-		background-color: lightgreen;
+		background-color: rgba(255, 255, 255, .2);
 	}
 	
 	.drag-dot {

@@ -13,10 +13,14 @@
 		},
 		methods: {
 			timeFormat(seconds) {
-				let raw = Math.round(seconds);
-				let sec = raw % 60;
-				let min = (raw - sec) / 60;
-				return (min < 10 ? '0' + min : min) + ':' + (sec < 10 ? '0' + sec : sec);
+				if(typeof seconds !== 'number') {
+					return '00:00'
+				}else {
+					let raw = Math.round(seconds);
+					let sec = raw % 60;
+					let min = (raw - sec) / 60;
+					return (min < 10 ? '0' + min : min) + ':' + (sec < 10 ? '0' + sec : sec);
+				}
 			}
 		},
 		events: {

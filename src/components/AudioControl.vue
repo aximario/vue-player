@@ -1,12 +1,12 @@
 <template>
     <div>
 		<prev-button></prev-button>
-		<play-button :audio.once="audio"></play-button>
+		<play-button></play-button>
 		<next-button></next-button>
-		<progress-bar :audio.once="audio"></progress-bar>
+		<progress-bar></progress-bar>
 		<div class="volume-control">
-			<mute-button class="mute" :audio.once="audio"></mute-button>
-			<volume-bar class="volume" :audio.once="audio"></volume-bar>
+			<mute-button class="mute"></mute-button>
+			<volume-bar class="volume"></volume-bar>
 		</div>
     </div>
 </template>
