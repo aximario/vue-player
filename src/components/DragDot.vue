@@ -20,20 +20,12 @@
 		props: {
 
 			// 百分比 0-1
-			percent: Number,
+			percent: Number
 
-			// 总长度（最大偏移量） 单位：px
-			length: Number
-
-		},
-		computed: {
-			offset() {
-				return this.percent * this.length;
-			}
 		},
 		watch: {
-			offset(val) {
-				this.$el.style.left = val - 5 + 'px';
+			percent(val) {
+				this.$el.style.left = `calc(${val*100}% - 5px)`;
 			}
 		},
 
@@ -43,24 +35,19 @@
 				that = this;
 
 			// 初始化偏移量
-			dragEle.style.left = this.offset - 5 + 'px';
+			dragEle.style.left = `calc(${this.percent*100}% - 5px)`;
 
 			// 拖动事件
 			let handleDown = function(e) {
 				let startX = e.clientX + window.pageXOffset,
 					origX = dragEle.offsetLeft,
-					deltaX = startX - origX,
-					len = that.length - 5;
+					deltaX = startX - origX;
 				let handleMove = e => {
 					let ofs = e.clientX + window.pageXOffset - deltaX;
-					if (ofs <= len && ofs >= -5) {
-						that.percent = (ofs + 5)/that.length;
 
-						// 触发dispatch事件，向父链通知偏移量（offset）的改变
-						that.$dispatch('drag', that.percent);
+					// 触发dispatch事件，向父链通知偏移量（offset）的改变
+					that.$dispatch('drag', ofs + 5);
 
-						dragEle.style.left = ofs + 'px';
-					}
 					e.stopPropagation()
 				};
 				let handleUp = e => {

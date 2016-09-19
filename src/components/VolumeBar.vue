@@ -1,7 +1,7 @@
 <template>
     <div class="bar">
-		<progressed class="progress" :length.once="100" :percent="volume"></progressed>
-        <drag-dot class="drag-dot" v-on:drag="drag" :percent="volume" :length.once="100"></drag-dot>
+		<progressed class="progress" :percent="volume"></progressed>
+        <drag-dot class="drag-dot" v-on:drag="drag" :percent="volume"></drag-dot>
     </div>
 </template>
 
@@ -39,8 +39,8 @@
 			}
 		},
 		methods: {
-			drag(volume) {
-				this.$dispatch('update-volume', volume);
+			drag(offset) {
+				this.$dispatch('update-volume', offset/100);
 			}
 		},
 		events: {

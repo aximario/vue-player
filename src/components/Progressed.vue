@@ -15,23 +15,16 @@
 		props: {
 
 			// 百分比 0-1
-			percent: Number,
+			percent: Number
 
-			// 总长度 单位：px
-			length: Number
-		},
-		computed: {
-			width() {
-				return this.percent * this.length;
-			}
 		},
 		watch: {
-			'width': function(val) {
-				this.$el.style.width = val + 'px';
+			'percent': function(val) {
+				this.$el.style.width = val * 100 + '%';
 			}
 		},
 		ready() {
-			this.$el.style.width = this.width + 'px';
+			this.$el.style.width = this.percent * 100 + 'px';
 		}
 	}
 </script>

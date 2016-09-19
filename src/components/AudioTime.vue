@@ -34,8 +34,10 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	div {
-		color: #eee;
+		width: 76px;
+		font-size: 13px;
+		color: rgba(255, 255, 255, .5);
 	}
 </style>

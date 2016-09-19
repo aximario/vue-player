@@ -24,7 +24,6 @@ export default {
 
 i {
 	font-family: "iconfont";
-	font-size: 16px;
 	font-style: normal;
 }
 </style>

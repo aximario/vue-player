@@ -1,15 +1,15 @@
 <template>
-	<div class="progress-bar">
-		<progressed class="cache" :length.once="200" :percent="cache"></progressed>
-		<progressed class="progress" :length.once="200" :percent="percent"></progressed>
-		<drag-dot class="drag-dot" :length.once="200" :percent="percent" v-on:drag="drag"></drag-dot>
+	<div class="progress-bar" v-el:bgb>
+		<progressed class="cache" :percent="cache"></progressed>
+		<progressed class="progress" :percent="percent"></progressed>
+		<drag-dot class="drag-dot" :percent="percent" v-on:drag="drag"></drag-dot>
 	</div>
 </template>
 
 <style scoped>
 	.progress-bar {
 		position: relative;
-		width: 200px;
+		width: 100%;
 		height: 4px;
 		background-color: rgba(255, 255, 255, .1);
 		border-radius: 2px;
@@ -26,7 +26,7 @@
 	}
 	
 	.cache {
-		background-color: rgba(255, 255, 255, .2);
+		background-color: rgba(255, 255, 255, .3);
 	}
 	
 	.drag-dot {
@@ -50,8 +50,9 @@
 			}
 		},
 		methods: {
-			drag(percent) {
-				this.$dispatch('update-time', percent);
+			drag(offset) {
+				let computedWidth = Number(window.getComputedStyle(this.$els.bgb).width.split('px')[0]);
+				this.$dispatch('update-time', offset/computedWidth);
 			}
 		},
 		events: {

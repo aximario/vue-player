@@ -6,13 +6,10 @@
 
 <style scoped>
 	div {
+		font-size: 14px;
 		padding: 14px;
-
-		color: #eee;
-
-		border-top: 1px solid #efefef;
-		border-bottom: 1px solid #efefef;
-
+		color: rgba(255, 255, 255, .5);
+		border-top: 1px solid rgba(255, 255, 255, .5);
 		cursor: pointer;
 	}
 </style>

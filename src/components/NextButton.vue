@@ -21,13 +21,16 @@
 
 <style scoped>
 	.icon {
-		font-size: 36px;
-		color: #cdcdcd;
+		font-size: 26px;
+		color: rgba(255, 255, 255, .85);
 	}
 	
 	button {
 		border: none;
+		margin: 6px 0;
+		vertical-align: top;
 		background-color: transparent;
 		outline: none;
+		cursor: pointer;
 	}
 </style>

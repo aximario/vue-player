@@ -1,29 +1,33 @@
 <template>
-  <div id="app">
-	  <audio v-el:audio></audio>
-	  <audio-control 
-	  	v-on:pause="pause" 
-		v-on:play="play" 
-		v-on:next-song="nextSong" 
-		v-on:prev-song="prevSong" 
-		v-on:mute="mute" 
-		v-on:unmute="unmute" 
-		v-on:update-volume="updateVolume" 
-		v-on:update-time="updateTime"></audio-control>
-	  <audio-list v-on:change-song="changeSong"></audio-list>
-	  <audio-time></audio-time>
-  </div>
+    <div id="app">
+		<audio v-el:audio></audio>
+	    <div>
+			<logo></logo>
+			<audio-control 
+				class="audio-control"
+				v-on:pause="pause" 
+				v-on:play="play" 
+				v-on:next-song="nextSong" 
+				v-on:prev-song="prevSong" 
+				v-on:mute="mute" 
+				v-on:unmute="unmute" 
+				v-on:update-volume="updateVolume" 
+				v-on:update-time="updateTime"></audio-control>
+			<audio-list v-on:change-song="changeSong"></audio-list>
+	    </div>
+    </div>
 </template>
 
 <script>
 	import AudioControl from './components/AudioControl';
 	import AudioList from './components/AudioList';
-	import AudioTime from './components/AudioTime';
+	import Logo from './components/Logo';
+	import './assets/styles/normalize.css';
 	export default {
 		components: {
 			AudioControl,
 			AudioList,
-			AudioTime
+			Logo
 		},
 		methods: {
 			pause() {
@@ -32,10 +36,10 @@
 			play() {
 				this.$els.audio.play();
 			},
-			nextSong(){
+			nextSong() {
 				this.$broadcast('list-next');
 			},
-			prevSong(){
+			prevSong() {
 				this.$broadcast('list-prev');
 			},
 			mute() {
@@ -61,6 +65,7 @@
 			let audio = this.$els.audio;
 			audio.addEventListener('ended', e => {
 				this.$broadcast('audio-ended');
+				this.$broadcast('list-next');
 			}, false);
 			audio.addEventListener('play', e => {
 				this.$broadcast('audio-play');
@@ -91,7 +96,40 @@
 </script>
 
 <style>
+	html,
+	body,
+	#app {
+		height: 100%
+	}
+	
 	body {
 		background-color: #272C30;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	#app {
+		width: 100%;
+	}
+	
+	#app>div {
+		position: relative;
+		height: 100%;
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+	
+	#app>div:after {
+		content: '';
+		height: 0;
+		display: block;
+		clear: both;
+	}
+	
+	.audio-control {
+		width: 100%;
+		max-width: 1280px;
+		margin: 0 auto;
+		position: absolute;
+		bottom: 10px;
 	}
 </style>

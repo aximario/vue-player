@@ -7,13 +7,14 @@
 <style scoped>
 	.icon {
 		font-size: 36px;
-		color: #cdcdcd;
+		color: rgba(255, 255, 255, .85);
 	}
 	
 	button {
 		border: none;
 		background-color: transparent;
 		outline: none;
+		cursor: pointer;
 	}
 </style>
 
