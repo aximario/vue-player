@@ -86,10 +86,31 @@
 				this.$broadcast('audio-loaded-metadata', audio.duration);
 			}, false);
 			audio.addEventListener('progress', e => {
-				this.$broadcast('audio-progress', {
-					buffered: audio.buffered,
-					duration: audio.duration
-				});
+				if (audio.readyState === 4) {
+					this.$broadcast('audio-progress', {
+						buffered: audio.buffered,
+						duration: audio.duration
+					});
+				}
+			}, false);
+			audio.addEventListener('error', e => {
+				try {
+					throw e;
+				} catch (e) {
+					switch (audio.error.code) {
+						case 2:
+							console.error('网络错误，请检查网络状态');
+							break;
+						case 3:
+							console.error('解码错误');
+							this.$broadcast('list-next');
+							break;
+						case 4:
+							console.error('不支持的媒体类型');
+							this.$broadcast('list-next');
+							break;
+					}
+				}
 			}, false);
 		}
 	}
@@ -106,7 +127,7 @@
 		background-color: #272C30;
 		font-family: Arial, Helvetica, sans-serif;
 	}
-
+	
 	#app {
 		width: 100%;
 	}

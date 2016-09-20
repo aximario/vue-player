@@ -1,5 +1,5 @@
 <template>
-	<div @click="handleClick">
+	<div :class="active" @click="handleClick">
 		{{song.name}}
 	</div>
 </template>
@@ -12,12 +12,25 @@
 		border-top: 1px solid rgba(255, 255, 255, .5);
 		cursor: pointer;
 	}
+	.active {
+		color: lightblue;
+	}
 </style>
 
 <script>
 	export default {
 		props: {
-			song: Object
+			song: Object,
+			current: Object
+		},
+		computed: {
+			active() {
+				if(this.current == this.song) {
+					return 'active';
+				} else {
+					return '';
+				}
+			}
 		},
 		methods: {
 			handleClick: function() {

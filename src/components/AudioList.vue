@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<audio-list-item v-for="item in list" :song="item" v-on:select-song="selectSong"></audio-list-item>
+		<audio-list-item v-for="item in list" :current="current" :song="item" v-on:select-song="selectSong"></audio-list-item>
 	</div>
 </template>
 
@@ -40,8 +40,8 @@
 		ready() {
 			let that = this;
 			request
-				// .get('http://localhost:3000/list')
-				.get('/list')
+				.get('http://localhost:3000/list/461712793')
+				// .get('/list')
 				.end((err, res) => {
 					that.list = res.body.result.tracks;
 				});
@@ -50,5 +50,8 @@
 </script>
 
 <style scoped>
-
+	div {
+		max-height: 600px;
+		overflow: scroll;
+	}
 </style>
