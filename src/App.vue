@@ -57,7 +57,7 @@
 			},
 			changeSong(song) {
 				let audio = this.$els.audio;
-				audio.src = song.src;
+				audio.src = song.mp3Url;
 				audio.play();
 			}
 		},
