@@ -1,27 +1,17 @@
-# ax
+# 鹤书嗣音
 
-> A Vue.js project
+> 一个用vue写的播放器
+> 没测试兼容性，请用最新的Chrome浏览器吧 XD
 
-## Build Setup
+## 用法
 
-``` bash
-# install dependencies
+```bash
+git clone https://github.com/aximario/vue-player.git
+
+cd vue-player
+
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+打开浏览器[http://localhost:8080/](http://localhost:8080/)

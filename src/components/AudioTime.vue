@@ -13,12 +13,16 @@
 		},
 		methods: {
 			timeFormat(seconds) {
-				if(typeof seconds !== 'number') {
+
+				// 当没有取到歌曲duration，或者不是number类型时返回00：00
+				if (!seconds || typeof seconds !== 'number') {
 					return '00:00'
-				}else {
+				} else {
 					let raw = Math.round(seconds);
 					let sec = raw % 60;
 					let min = (raw - sec) / 60;
+					
+					// 默认歌曲最大时长不会超过 59:59
 					return (min < 10 ? '0' + min : min) + ':' + (sec < 10 ? '0' + sec : sec);
 				}
 			}

@@ -63,6 +63,9 @@
 		},
 		ready() {
 			let audio = this.$els.audio;
+			audio.addEventListener('loadstart', e => {
+				this.$broadcast('audio-loadstart');
+			}, false);
 			audio.addEventListener('ended', e => {
 				this.$broadcast('audio-ended');
 				this.$broadcast('list-next');

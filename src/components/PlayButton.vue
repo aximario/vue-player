@@ -26,12 +26,13 @@
 		},
 		data() {
 			return {
-				paused: true
+				paused: true,
+				ended: false
 			}
 		},
 		computed: {
 			icon() {
-				return this.paused ? '&#xe602;' : '&#xe603;';
+				return (this.paused || this.ended) ? '&#xe602;' : '&#xe603;';
 			}
 		},
 		methods: {
@@ -41,14 +42,23 @@
 			}
 		},
 		events: {
+
+			// 调用了play()方法或者设置autoplay触发
+			// !!!! 但是音频**不一定**立马播放
+			// 如果没有足够的数据，会触发waiting事件，进入缓冲状态
+			// 如果有足够的数据，音频播放，触发playing事件
 			'audio-play': function() {
 				this.paused = false;
 			},
+
 			'audio-pause': function() {
 				this.paused = true;
 			},
+			'audio-loadstart': function() {
+				this.ended = false;
+			},
 			'audio-ended': function() {
-				this.paused = true;
+				this.ended = true;
 			}
 		}
 	}

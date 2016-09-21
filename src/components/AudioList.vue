@@ -40,8 +40,8 @@
 		ready() {
 			let that = this;
 			request
-				// .get('http://localhost:3000/list/461712793')
-				.get('/list')
+				.get('http://localhost:3000/list/461712793')
+				// .get('/list')
 				.end((err, res) => {
 					that.list = res.body.result.tracks;
 				});
@@ -52,6 +52,6 @@
 <style scoped>
 	div {
 		max-height: 600px;
-		overflow: scroll;
+		overflow: auto;
 	}
 </style>
