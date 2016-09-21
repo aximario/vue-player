@@ -15,3 +15,7 @@ npm run dev
 ```
 
 打开浏览器[http://localhost:8080/](http://localhost:8080/)
+
+## 开源许可证
+
+MIT

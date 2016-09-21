@@ -20,7 +20,7 @@
 </style>
 
 <script>
-	import Icon from './Icon'
+	import Icon from '../common/Icon'
 	export default {
 		components: {
 			Icon

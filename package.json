@@ -1,9 +1,9 @@
 {
-  "name": "ax",
+  "name": "vue-player",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "A Vue.js player",
   "author": "阿希 <aximario@qq.com>",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",

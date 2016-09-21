@@ -44,6 +44,8 @@
 				// .get('/list')
 				.end((err, res) => {
 					that.list = res.body.result.tracks;
+					this.current = this.list[0];
+					this.$dispatch('init-song', this.current);
 				});
 		}
 	}

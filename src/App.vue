@@ -13,21 +13,29 @@
 				v-on:unmute="unmute" 
 				v-on:update-volume="updateVolume" 
 				v-on:update-time="updateTime"></audio-control>
-			<audio-list v-on:change-song="changeSong"></audio-list>
+			<audio-list v-on:change-song="changeSong" v-on:init-song="initSong"></audio-list>
+			<audio-lyric :song-id='song.id'></audio-lyric>
 	    </div>
     </div>
 </template>
 
 <script>
-	import AudioControl from './components/AudioControl';
-	import AudioList from './components/AudioList';
-	import Logo from './components/Logo';
+	import AudioControl from './components/audio-control/AudioControl';
+	import AudioList from './components/audio-list/AudioList';
+	import AudioLyric from './components/audio-lyric/AudioLyric'
+	import Logo from './components/common/Logo';
 	import './assets/styles/normalize.css';
 	export default {
 		components: {
 			AudioControl,
 			AudioList,
+			AudioLyric,
 			Logo
+		},
+		data() {
+			return {
+				song: null
+			}
 		},
 		methods: {
 			pause() {
@@ -55,7 +63,12 @@
 				let audio = this.$els.audio;
 				audio.currentTime = audio.duration * percent;
 			},
+			initSong(song) {
+				this.song = song;
+				this.$els.audio.src = song.mp3Url;
+			},
 			changeSong(song) {
+				this.song = song;
 				let audio = this.$els.audio;
 				audio.src = song.mp3Url;
 				audio.play();
