@@ -70,7 +70,7 @@
 			changeSong(song) {
 				this.song = song;
 				let audio = this.$els.audio;
-				audio.src = song.mp3Url;
+				audio.src = song.src;
 				audio.play();
 			}
 		},

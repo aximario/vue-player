@@ -40,10 +40,10 @@
 		ready() {
 			let that = this;
 			request
-				.get('http://localhost:3000/list/461712793')
+				.get('http://localhost:3000/latestalbum')
 				// .get('/list')
 				.end((err, res) => {
-					that.list = res.body.result.tracks;
+					that.list = res.body;
 					this.current = this.list[0];
 					this.$dispatch('init-song', this.current);
 				});
