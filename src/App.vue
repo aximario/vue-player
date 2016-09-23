@@ -14,7 +14,6 @@
 				v-on:update-volume="updateVolume" 
 				v-on:update-time="updateTime"></audio-control>
 			<audio-list v-on:change-song="changeSong" v-on:init-song="initSong"></audio-list>
-			<audio-lyric :song-id='song.id'></audio-lyric>
 	    </div>
     </div>
 </template>
@@ -140,8 +139,22 @@
 	}
 	
 	body {
+		position: relative;
 		background-color: #272C30;
+		background-repeat: no-repeat;
+		background-size: contain;
 		font-family: Arial, Helvetica, sans-serif;
+	}
+	
+	body:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: url('./assets/images/01.jpg') 0 / cover fixed;
+		filter: blur(8px);
 	}
 	
 	#app {

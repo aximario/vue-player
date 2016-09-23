@@ -41,7 +41,7 @@
 			let that = this;
 			request
 				.get('http://localhost:3000/latestalbum')
-				// .get('/list')
+				// .get('/latestalbum')
 				.end((err, res) => {
 					that.list = res.body;
 					this.current = this.list[0];
